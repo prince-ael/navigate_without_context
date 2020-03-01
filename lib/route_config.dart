@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:navigate_without_context/login_bloc.dart';
 import './login_screen.dart';
 import './registration_screen.dart';
 import './route_names.dart';
@@ -18,7 +19,10 @@ class RouteConfig {
 
   MaterialPageRoute loginScreen() {
     return MaterialPageRoute(
-      builder: (context) => LoginScreen(),
+      builder: (context) => MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => LoginBloc())],
+        child: LoginScreen(),
+      ),
     );
   }
   // MaterialPageRoute loginScreen() {

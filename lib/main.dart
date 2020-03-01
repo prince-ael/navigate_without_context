@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import './login_screen.dart';
+import 'package:navigate_without_context/locator.dart';
 import './route_config.dart';
+import 'navigation_service.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  setupLocator();
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -11,6 +15,7 @@ class MyApp extends StatelessWidget {
     final routeConfig = RouteConfig();
     return MaterialApp(
       title: 'Flutter Demo',
+      navigatorKey: locator<NavigationService>().navigatorKey,
       debugShowCheckedModeBanner: false,
       onGenerateRoute: routeConfig.routes,
     );

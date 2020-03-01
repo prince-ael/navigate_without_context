@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import './utils.dart';
 
 class RegistrationScreen extends StatelessWidget {
@@ -8,25 +9,32 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 0.0),
-          child: Column(
-            children: <Widget>[
-              customerId(context),
-              verticalSpace(16.0),
-              accountNumber(context),
-              verticalSpace(16.0),
-              mobileNumber(context),
-              verticalSpace(76.0),
-              Row(
-                children: <Widget>[
-                  backButton(context),
-                  Spacer(),
-                ],
-              ),
-            ],
+    return WillPopScope(
+      onWillPop: () async {
+        //To exit from the app.
+        SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+        return false;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 0.0),
+            child: Column(
+              children: <Widget>[
+                customerId(context),
+                verticalSpace(16.0),
+                accountNumber(context),
+                verticalSpace(16.0),
+                mobileNumber(context),
+                verticalSpace(76.0),
+                Row(
+                  children: <Widget>[
+                    backButton(context),
+                    Spacer(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -122,7 +130,8 @@ class RegistrationScreen extends StatelessWidget {
           borderSide: BorderSide(width: 1.0, color: Colors.blue),
         ),
         onPressed: () {
-          Navigator.pop(context);
+          bool isGoingBack = Navigator.pop(context);
+          print("isGoingBack: $isGoingBack");
         },
         child: Icon(
           Icons.arrow_back,
